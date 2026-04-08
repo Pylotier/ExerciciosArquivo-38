@@ -14,12 +14,12 @@ def main():
     n = int(input("Digite um número: "))
     maiorNumero = n
     menorNumero = n
-    gravarNumero(n)
+    gravarNumero(n, cont)
     cont += 1
 
-    while (cont != 100):
+    while (cont != 5):
         n = int(input("Digite um número: "))
-        gravarNumero(n)
+        gravarNumero(n, cont)
         maiorNumero, menorNumero = NumMaiorMenor(n, maiorNumero, menorNumero)
         cont += 1
     gravarResultado(maiorNumero, menorNumero)
@@ -32,7 +32,7 @@ def NumMaiorMenor(numero: int, maior: int, menor: int):
         menor = numero
     return(maior, menor)
 
-def gravarNumero(numeroDigitado):
+def gravarNumero(numeroDigitado, contador):
     global dir
     global arq
 
@@ -50,7 +50,10 @@ def gravarNumero(numeroDigitado):
         arquivo = dir + arq
         enc = 'utf-8'
         if (os.path.exists(arquivo)):
-            tipo = 'a'
+            if (contador == 0):
+                tipo = 'w'
+            else:
+                tipo = 'a'
         with open (arquivo, tipo, encoding=enc) as file:
             file.write(linha)
     else:
@@ -82,4 +85,4 @@ def gravarResultado(maiorNumero, menorNumero):
         print('Diretorio invalido')
 
 if (__name__ == "__main__"):
-    main();
+    main()
